@@ -28,9 +28,9 @@ Route::get('/connection', function() {
 		'/routes/received',
 		'/routes/accept/routeid',
 		'/routes/decline/routeid',
-
-	]
-	return ['connection' => 'connected'];
+	];
+	return $routes;
+	
 });
 
 Route::post('/register', 'RegisterController@register');
