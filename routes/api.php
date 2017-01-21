@@ -17,6 +17,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::get('/connection', function() {
+	return ['connection' => 'connected'];
+});
+
 Route::post('/register', 'RegisterController@register');
 
 Route::group(['prefix' => 'routes'], function() {
