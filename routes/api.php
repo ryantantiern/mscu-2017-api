@@ -18,6 +18,18 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/connection', function() {
+	$routes = [
+		'/user',
+		'/register',
+		'/routes',
+		'/routes/create',
+		'/routes/delete/{routeid}',
+		'/routes/share/{userid}/{routeid}',
+		'/routes/received',
+		'/routes/accept/routeid',
+		'/routes/decline/routeid',
+
+	]
 	return ['connection' => 'connected'];
 });
 
