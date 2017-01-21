@@ -18,16 +18,26 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/connection', function() {
-	$routes = [
-		'/user',
-		'/register',
-		'/routes',
-		'/routes/create',
-		'/routes/delete/{routeid}',
-		'/routes/share/{userid}/{routeid}',
-		'/routes/received',
-		'/routes/accept/routeid',
-		'/routes/decline/routeid',
+	$routes = [ 
+		'PREFIX register' => 'POST/',
+		'PREFIX routes' => [
+			'GET/',
+			'POST/create',
+			'DELETE/delete/routeid',
+			'GET/share/{userid}/{routeid}',
+			'GET/received/',
+			'GET/accept/{routeid}',
+			'GET/decline/{routeid}',
+		],
+		'PREFIX friends' => [
+			'GET/',
+			'GET/add/{userid}',
+			'GET/delete/{userid}',
+			'GET/requests/received',
+			'GET/requests/sent',
+			'GET/accept/{userid}',
+			'GET/decline/{userid}',
+		]		
 	];
 	return $routes;
 	
