@@ -39,7 +39,7 @@ Route::get('/connection', function() {
 			'GET/decline/{userid}',
 		]
 	];
-	return json_encode($routes);
+	return $routes;
 	
 });
 
