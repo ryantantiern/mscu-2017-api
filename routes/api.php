@@ -37,7 +37,7 @@ Route::get('/connection', function() {
 			'GET/requests/sent',
 			'GET/accept/{userid}',
 			'GET/decline/{userid}',
-		]->toJson()
+		]
 	];
 	return $routes->toJson();
 	
