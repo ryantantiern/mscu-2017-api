@@ -19,8 +19,8 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/connection', function() {
 	$routes = [ 
-		'PREFIX register' => 'POST/',
-		'PREFIX routes' => [
+		'register' => 'POST/',
+		'routes' => [
 			'GET/',
 			'POST/create',
 			'DELETE/delete/routeid',
@@ -29,7 +29,7 @@ Route::get('/connection', function() {
 			'GET/accept/{routeid}',
 			'GET/decline/{routeid}',
 		],
-		'PREFIX friends' => [
+		'friends' => [
 			'GET/',
 			'GET/add/{userid}',
 			'GET/delete/{userid}',
@@ -37,7 +37,7 @@ Route::get('/connection', function() {
 			'GET/requests/sent',
 			'GET/accept/{userid}',
 			'GET/decline/{userid}',
-		]		
+		]->toJson()		
 	];
 	return $routes->toJson();
 	
