@@ -5,6 +5,12 @@ After pulling, run 'composer install' in terminal, then create a .env file and C
 
 Run <code>php artisan migrate</code>, then <code>php artisan passport:install</code> to initialize client_id and client_secret in oauth_client table
 
+# Set up Linux VM on Azure 
+ref : <a>https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-postgresql-install</a>
+NOTE: some values given in the tutorial are out of date or completely wrong in context. Change values as necessary. 
+
+<br>pgsql restart can be found in init.d directory (exampple : /etc/init.d/postgrsql restart)
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
