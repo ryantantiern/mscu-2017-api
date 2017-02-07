@@ -12,13 +12,13 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
     	$this->validate($request, [
-    		'email' => 'required|email|unique:users,email|max:60',
-    		'password' => 'required|min:6|max:30',
+    		'data.email' => 'required|email|unique:users,email|max:60',
+    		'data.password' => 'required|max:30',
     	]);
     
     	$user = User::create([
-    		'email' => $request->input('email'),
-    		'password' => bcrypt($request->input('password')),
+    		'email' => $request->input('data.email'),
+    		'password' => bcrypt($request->input('data.password')),
     	]);
 
     	$response = ['email' => $user->email, 'password' => $user->password, 'status' => 'all ok!'];
