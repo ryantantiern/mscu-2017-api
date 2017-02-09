@@ -19,5 +19,3 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 
-Header set Access-Control-Allow-Origin "*"
-

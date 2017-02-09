@@ -12,16 +12,20 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
     	$this->validate($request, [
-    		'data.email' => 'required|email|unique:users,email|max:60',
-    		'data.password' => 'required|max:30',
+    		'email' => 'required|email|unique:users,email|max:60',
+    		'password' => 'required|max:30',
     	]);
     
     	$user = User::create([
-    		'email' => $request->input('data.email'),
-    		'password' => bcrypt($request->input('data.password')),
+    		'email' => $request->input('email'),
+    		'password' => bcrypt($request->input('password')),
     	]);
 
-    	$response = ['email' => $user->email, 'password' => $user->password, 'status' => 'all ok!'];
+    	$response = [
+            'email' => $user->email, 
+            'password' => $user->password, 
+            'status' => 'ok'
+        ];
 
         return $response;
     }

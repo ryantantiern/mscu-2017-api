@@ -10,10 +10,19 @@ class FriendController extends Controller
 {
     public function friends(Request $request)
     {
-        $response = ['status' => 'response', 'response' => ''];
+        $response = ['status' => 'ok'];
         $user = $request->user();
-        if ($user->friends()->isEmpty()){ $response['response'] = 'You have no friends';}
-        else {$response['response'] = $user->friends()->toArray(); $response['count'] = $user->friends()->count();}
+        if ($user->friends()->isEmpty()){ $response['message'] = 'You have no friends';}
+        else {
+          $friends = $user->friends();
+          $response['friends'] = [];
+          foreach ($friends as $fr) {
+            $friend['id'] = $fr->id;
+            $friend['email'] = $fr->email;
+            array_push($response['friends'] , $friend);           
+          }
+          $response['count'] = $user->friends()->count();
+        }
         return $response;
     }
 
