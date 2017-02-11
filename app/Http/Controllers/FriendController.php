@@ -28,6 +28,7 @@ class FriendController extends Controller
 
     public function add(Request $request, $user_id)
     {
+      // TODO : Standardize responses
     	$user = $request->user();
     	$response = ['error' => 'Internal Server Error'];
   		try {
