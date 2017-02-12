@@ -65,6 +65,7 @@ Route::group(['prefix' => 'friends'], function () {
 	Route::get('/requests/sent', 'FriendController@sent')->middleware('auth:api');
 	Route::get('/accept/{user_id}', 'FriendController@accept')->middleware('auth:api');
 	Route::get('/decline/{user_id}', 'FriendController@decline')->middleware('auth:api');
-
 });
+
+Route::get('search/{query}', 'SearchController@search')->middleware('auth:api');
 
