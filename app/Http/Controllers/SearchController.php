@@ -15,28 +15,43 @@ class SearchController extends Controller
 	    if (empty($query)) {
 	    	return ['message' => 'Not a valid query'];
 	    }
+      $frReqPend = [];
+      // Assoc array for friend request pending
+       foreach ($request->user()->friendRequestsSentPending() as $user) {
+         $frReqPend[$user->id] = $user;
+       }
+     
+  
+      $queryParams = explode(" ", $query); 
 
-    	$queryParams = explode(" ", $query); 
+      if (sizeof($queryParams) == 1 && is_numeric($queryParams[0])) {
+       // Search by phone
+       $search_result = $this->searchByPhone($queryParams[0], $request->user()->id);
+      }
+      else {
+      // Search by name
+      $search_result = $this->searchByName($queryParams, $request->user()->id);
+      }
 
-       	if (sizeof($queryParams) == 1 && is_numeric($queryParams[0])) {
-       		// Search by phone
-       		return $this->searchByPhone($queryParams[0], $request->user()->id);
-       	}
-
-   		// Search by name
-   		return $this->searchByName($queryParams, $request->user()->id);
-    
-
+     foreach ($search_result as $r) {
+       if (!empty($frReqPend[(string)$r->id])) {
+          $r->request_sent = true;
+       }
+       else {
+          $r->request_sent = false;
+       }
+     }
+      return $search_result;    
     }
-    /**
-     * [searchByPhone search users by phone]
-     * @param  [Int] $numeric := phone number
-     * @param  [Int] $user_id := current uid
-     * @return [Collection]  Users that match $numeric  
+          /**
+           * [searchByPhone search users by phone]
+           * @param  [Int] $numeric := phone number
+           * @param  [Int] $user_id := current uid
+           * @retur)n [Collection]  Users that match $numeric  
      */
     private function searchByPhone($numeric, $user_id)
     {
-    	return User::select('id', 'firstname', 'lastname')
+    	return User::select('id', 'firstname', 'lastname', 'phone') //remove phone
     		->where([
     			['phone', 'LIKE', "%{$numeric}%"],
     			['id', '!=', $user_id]
@@ -63,7 +78,7 @@ class SearchController extends Controller
   		}
 
 
-    	return User::select('id', 'firstname', 'lastname')
+    	return User::select('id', 'firstname', 'lastname', 'phone') //remove phone
     		->where('firstname', 'LIKE', "%{$fullname[0]}%")
     		->orWhere('lastname', 'LIKE', "%{$fullname[0]}%")
     		->orWhere('firstname', 'LIKE', "%{$fullname[1]}%")

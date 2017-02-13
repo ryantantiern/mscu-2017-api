@@ -30,23 +30,43 @@ class FriendController extends Controller
     {
       // TODO : Standardize responses
     	$user = $request->user();
-    	$response = ['error' => 'Internal Server Error'];
+    	$response = ['message' => 'Internal Server Error'];
   		try {
   			$friend = User::find($user_id);
   			if ($user->hasAFriendRequest($friend)) { 
-  				$response = ['status' => 'fail', 'fail' => 'Friend request was already sent to user id: ' . $friend->id]; 
+  				$response = ['message' => 'fail', 'fail' => 'Friend request was already sent to user id: ' . $friend->id]; 
   			}
   			else if ($user->id == $friend->id) {
-  				$response = ['status' => 'fail', 'fail' => 'Cannot add self']; 
+  				$response = ['message' => 'fail', 'fail' => 'Cannot add self']; 
   			}
   			else { 
   				$user->addFriend($friend);
-  				$response = ['status' => 'success'];
+  				$response = ['message' => 'success'];
   			}
   		} 
   		catch (Exception $e) { $response = ['status' => 'error', 'error' => $e]; } 
   		finally {return $response;}
     }
+
+      public function cancel(Request $request, $user_id)
+      {
+        // TODO : Standardize responses
+        $user = $request->user();
+        try {
+          $friend = User::find($user_id);
+          if ($user->hasAFriendRequest($friend)) { 
+            $friend->declineFriendRequest($user);
+            $response = ['message' => 'success'];
+          }
+          else { 
+            $response = ['message' => "no friend request with message{$friend->firstname} {$friend->lastname}"]; 
+          }
+        } 
+        catch (Exception $e) { $response = ['status' => 'error', 'error' => $e]; } 
+        finally {return $response;}
+      }
+
+
 
     public function delete(Request $request, $user_id)
     {
