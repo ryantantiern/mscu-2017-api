@@ -9,21 +9,30 @@ class SearchController extends Controller
 {
     public function search(Request $request, $query) 
     {
-    	// Query can be int or firstname lastname
-	    // Return users that match phone or firstname lastname
-	    // Filter duplicates
+    	/* 
+        Query can be int or firstname lastname
+        Return users that match phone or firstname lastname
+        Set @param request_sent to false if request already sent
+        Filter friends
+
+      */ 
 	    if (empty($query)) {
 	    	return ['message' => 'Not a valid query'];
 	    }
+
       $frReqPend = [];
+      $friends = [];
+      $queryParams = explode(" ", $query); 
+
       // Assoc array for friend request pending
        foreach ($request->user()->friendRequestsSentPending() as $user) {
          $frReqPend[$user->id] = $user;
        }
-     
-  
-      $queryParams = explode(" ", $query); 
 
+       foreach ($request->user()->friends() as $friend) {
+         $friends[$friend->id] = $friend;
+       }
+      
       if (sizeof($queryParams) == 1 && is_numeric($queryParams[0])) {
        // Search by phone
        $search_result = $this->searchByPhone($queryParams[0], $request->user()->id);
@@ -33,12 +42,15 @@ class SearchController extends Controller
       $search_result = $this->searchByName($queryParams, $request->user()->id);
       }
 
-     foreach ($search_result as $r) {
+     foreach ($search_result as $key => $r) {
        if (!empty($frReqPend[(string)$r->id])) {
           $r->request_sent = true;
        }
        else {
           $r->request_sent = false;
+       }
+       if (!empty($friends[(string)$r->id])) {
+          unset($search_result[$key]);
        }
      }
       return $search_result;    

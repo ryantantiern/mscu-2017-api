@@ -18,7 +18,9 @@ class FriendController extends Controller
           $response['friends'] = [];
           foreach ($friends as $fr) {
             $friend['id'] = $fr->id;
-            $friend['email'] = $fr->email;
+            $friend['firstname'] = $fr->firstname;
+            $friend['lastname'] = $fr->lastname;
+            $friend['phone'] = $fr->phone;
             array_push($response['friends'] , $friend);           
           }
           $response['count'] = $user->friends()->count();
@@ -120,10 +122,18 @@ class FriendController extends Controller
     {
         $user = $request->user();
         if ($user->friendRequestsReceivedPending()->isEmpty()){
-            return ['status' => 'response', 'response' => 'No friend requests received'];
+            return ['message' => 'No friend requests received'];
         }
-
-        return $user->friendRequestsReceivedPending();
+        $response['friends'] = [];
+        $frRequests = $user->friendRequestsReceivedPending();
+        foreach ($frRequests as $fr) {
+          $friend['id'] = $fr->id;
+          $friend['firstname'] = $fr->firstname;
+          $friend['lastname'] = $fr->lastname;
+          $friend['phone'] = $fr->phone;
+          array_push($response['friends'] , $friend);           
+        }
+        return $response;
     }
 
     public function sent(Request $request)
