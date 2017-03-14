@@ -40,7 +40,11 @@ class RouteController extends Controller
     		'body' => $json_coordinates
     	]);
 
-        $response = ['status' => 'success', 'route' => $route, "extra" => [$request->input('title'), $request->input('comments')]];
+        $response = [
+        'status' => 'success', 'route' => $route, 
+        "title" => $request->input('title'), 
+        "description" => $request->input('comments')
+        ];
     	return $response;
     }
 
