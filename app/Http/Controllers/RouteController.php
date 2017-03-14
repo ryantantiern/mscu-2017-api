@@ -41,7 +41,7 @@ class RouteController extends Controller
     	]);
 
         $response = ['status' => 'success', 'route' => $route];
-    	return $route;
+    	return $response;
     }
 
     public function delete(Request $request, $route_id)
