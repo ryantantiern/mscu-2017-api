@@ -23,15 +23,15 @@ class RouteController extends Controller
     	$array_coordinates = json_decode($json_coordinates);
 
     	if (!is_array($array_coordinates)) {
-    		return ['status' => 'error', 'error' => 'Route is not an array'];
+    		return ['error' => 'Route is not an array'];
       	}
 
         // Error checking
       	foreach ($array_coordinates as $coord) {
-      		if (!is_array($coord)) { return ['status' => 'error' , 'error' => 'Coordinates are not an array']; }
-      		if (!count($coord) == 2) { return ['status' => 'error', 'error' => 'Not a a pair of coordinates']; }
+      		if (!is_array($coord)) { return ['error' => 'Coordinates are not an array']; }
+      		if (!count($coord) == 2) { return ['error' => 'Not a a pair of coordinates']; }
 			foreach ($coord as $val) {
-				if (!is_numeric($val)) { return ['status' => 'error', 'error' => 'Coordinate is not numeric value']; }
+				if (!is_numeric($val)) { return ['error' => 'Coordinate is not numeric value']; }
   			}
       	}
 	    
@@ -40,7 +40,7 @@ class RouteController extends Controller
     		'body' => $json_coordinates
     	]);
 
-        $response = ['status' => 'response', 'response' => 'route', 'route' => $route];
+        $response = ['status' => 'success', 'route' => $route];
     	return $route;
     }
 
