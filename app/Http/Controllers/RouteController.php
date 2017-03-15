@@ -13,7 +13,17 @@ class RouteController extends Controller
         //Todo: response should not expose id of route within the table
         $user = $request->user();
         $routes = $user->routes()->get();
-        $response = ['status' => 'response', 'response' => 'routes', 'count' => $routes->count() , 'routes' => $routes];
+        $response = [
+            'status' => 'succes', 
+            'count' => $routes->count() , 
+            'routes' => $routes->map(function($route) {
+                return [
+                    "id" => $route->id,
+                    "body" =>  $route->body,
+                    "created_at" => $route->created_at
+                ];
+            })
+        ];
         return $response;
     }
 
