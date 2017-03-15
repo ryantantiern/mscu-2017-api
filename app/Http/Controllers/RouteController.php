@@ -38,7 +38,8 @@ class RouteController extends Controller
     	$route = Route::create([
     		'user_id' => $request->user()->id,
     		'body' => $json_coordinates,
-            'title' => $request->input('title'),
+           // Uncomment when going to production, Don't forget fillable
+           //  'title' => $request->input('title'),
     	]);
 
         $response = [
