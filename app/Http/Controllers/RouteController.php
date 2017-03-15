@@ -37,13 +37,14 @@ class RouteController extends Controller
 	    
     	$route = Route::create([
     		'user_id' => $request->user()->id,
-    		'body' => $json_coordinates
+    		'body' => $json_coordinates,
+            'title' => $request->input('title'),
     	]);
 
         $response = [
-        'status' => 'success', 'route' => $route, 
-        "title" => $request->input('title'), 
-        "description" => $request->input('comments')
+        'status' => 'success', 
+        'route' => $route, 
+        'title' => $request->input('title'), 
         ];
     	return $response;
     }
