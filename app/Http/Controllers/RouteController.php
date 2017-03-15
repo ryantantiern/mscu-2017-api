@@ -20,7 +20,7 @@ class RouteController extends Controller
                 return [
                     "id" => $route->id,
                     "body" =>  $route->body,
-                    "created_at" => $route->created_at
+                    "created_at" => $route->created_at["date"]
                 ];
             })
         ];
