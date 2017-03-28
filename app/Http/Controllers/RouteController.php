@@ -20,7 +20,11 @@ class RouteController extends Controller
                 return [
                     "id" => $route->id,
                     "body" =>  $route->body,
-                    "created_at" => $route->created_at
+                    "title" =>  $route->title, 
+                    "description" => $route->description,
+                    "start_address" => $route->start_address,
+                    "end_address" => $route->end_address,
+                    "created_at" => $route->created_at,
                 ];
             })
         ];
