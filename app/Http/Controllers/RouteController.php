@@ -49,13 +49,15 @@ class RouteController extends Controller
     		'user_id' => $request->user()->id,
     		'body' => $json_coordinates,
            // Uncomment when going to production, Don't forget fillable
-           //  'title' => $request->input('title'),
+            'title' => $request->input('title'),
+            'description' => $request->input('description'), 
+            'start_address' => $request->input('start_address'),
+            'end_address' => $request->input('end_address'),
     	]);
 
         $response = [
         'status' => 'success', 
         'route' => $route, 
-        'title' => $request->input('title'), 
         ];
     	return $response;
     }

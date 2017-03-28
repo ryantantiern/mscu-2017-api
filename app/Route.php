@@ -10,7 +10,7 @@ class Route extends Model
 {
     protected $table = 'routes';
 
-    protected $fillable = ['user_id', 'body', /*'title'*/];
+    protected $fillable = ['user_id', 'body', 'title', 'description', 'start_address', 'end_address'];
 
     public function user() 
     {
