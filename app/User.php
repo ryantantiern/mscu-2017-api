@@ -68,7 +68,11 @@ class User extends Authenticatable
     {   
         Route::create([
                 'user_id' => $this->id,
-                'body' => $route->body
+                'body' => $route->body,
+                'title' => $request->input('title'),
+                'description' => $request->input('description'), 
+                'start_address' => $request->input('start_address'),
+                'end_address' => $request->input('end_address'),
         ]);
         $this->receivedRoutes()->wherePivot('route_id', $route->id)->first()->pivot->update([
             'accepted' => true
