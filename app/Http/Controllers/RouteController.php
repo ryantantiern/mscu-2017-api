@@ -57,7 +57,7 @@ class RouteController extends Controller
             return new Waypoint($wp);
         });
 
-        // Convert objects to Waypoint objects
+
         
 
         // Create Route
@@ -68,7 +68,8 @@ class RouteController extends Controller
             'start_address' => $request->input('start_address'),
             'end_address' => $request->input('end_address'),
         ]);
-
+        
+        // Convert objects to Waypoint objects
        $route->waypoints()->saveMany($waypoints);
        
         return ['success'];

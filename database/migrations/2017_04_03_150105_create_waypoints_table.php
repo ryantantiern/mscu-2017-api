@@ -15,8 +15,8 @@ class CreateWaypointsTable extends Migration
     {
         Schema::create('waypoints', function (Blueprint $table) {
             $table->integer('route_id');
-            $table->decimal('lat', 8, 5);
-            $table->decimal('lon', 8, 5);
+            $table->decimal('lat', 9, 6);
+            $table->decimal('lon', 9, 6);
             $table->integer('position'); // How to enforce uniqueness within the block? 
             $table->longText('description')->nullable();
             $table->string('tag')->nullable();
