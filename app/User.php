@@ -72,7 +72,7 @@ class User extends Authenticatable
     {   
         // Get waypoints of route
         // Convert waypoints collection to array
-        $waypoints = $route->waypoints()->toArray();
+        $waypoints = $route->waypoints()->get();
         $newRoute = Route::create([
                 'user_id' => $this->id,
                 'body' => $route->body,
