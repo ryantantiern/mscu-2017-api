@@ -87,7 +87,7 @@ class User extends Authenticatable
         ]);
 
         // Associate waypoints to new route
-        $newRoute->waypoints()->saveMany($newWaypoints);
+        // $newRoute->waypoints()->saveMany($newWaypoints);
 
         $this->receivedRoutes()->wherePivot('route_id', $route->id)->first()->pivot->update([
             'accepted' => true
