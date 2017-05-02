@@ -7,6 +7,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Route;
+use App\Waypoint;
 
 use Illuminate\Support\Collection as Collection;
 
@@ -75,7 +76,7 @@ class User extends Authenticatable
         $waypoints = $route->waypoints()->get();
         $newWaypoints  = [];
         foreach ($waypoints as $wp) {
-            array_push($newWaypoints, $wp); 
+            array_push($newWaypoints, new Waypoint($wp)); 
         };
         $newRoute = Route::create([
                 'user_id' => $this->id,
