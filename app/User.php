@@ -73,7 +73,7 @@ class User extends Authenticatable
     {   
         // Get waypoints of route
         // Convert waypoints collection to array
-        $waypoints = $route->waypoints()->get();
+        $waypoints = $route->waypoints()->get()->toArray();
         $newWaypoints  = [];
         foreach ($waypoints as $wp) {
             array_push($newWaypoints, new Waypoint($wp)); 
