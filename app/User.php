@@ -79,7 +79,6 @@ class User extends Authenticatable
         };
         $newRoute = Route::create([
                 'user_id' => $this->id,
-                'body' => $route->body,
                 'title' => $route->title,
                 'description' => $route->description, 
                 'start_address' => $route->start_address,
@@ -87,7 +86,7 @@ class User extends Authenticatable
         ]);
 
         // Associate waypoints to new route
-        // $newRoute->waypoints()->saveMany($newWaypoints);
+        $newRoute->waypoints()->saveMany($newWaypoints);
 
         $this->receivedRoutes()->wherePivot('route_id', $route->id)->first()->pivot->update([
             'accepted' => true
