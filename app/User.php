@@ -73,22 +73,17 @@ class User extends Authenticatable
     {   
         // Get waypoints of route
         // Convert waypoints collection to array
-        $waypoints = $route->waypoints()->get()->toArray();
-        $newWaypoints  = [];
-        foreach ($waypoints as $wp) {
-            array_push($newWaypoints, new Waypoint($wp)); 
-        };
+        // $waypoints = $route->waypoints()->toArray();
         $newRoute = Route::create([
-                'user_id' => $this->id,
-                'title' => $route->title,
-                'description' => $route->description, 
-                'start_address' => $route->start_address,
-                'end_address' => $route->end_address
+             'user_id' => $this->id,
+             'title' => $route->title,
+             'description' => $route->description, 
+             'start_address' => $route->start_address,
+             'end_address' => $route->end_address
         ]);
 
         // Associate waypoints to new route
-        // $newRoute->waypoints()->saveMany($newWaypoints);
-
+        // $newRoute->waypoints()->saveMany($waypoints);
         $this->receivedRoutes()->wherePivot('route_id', $route->id)->first()->pivot->update([
             'accepted' => true
         ]);
