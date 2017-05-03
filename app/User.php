@@ -72,7 +72,7 @@ class User extends Authenticatable
     public function accept(Route $route)
     {   
         // Get waypoints of route
-        $waypoints = $route->waypoints()->get();
+        $waypoints = $route->waypoints()->get()->toArray();
 
         $newRoute = Route::create([
              'user_id' => $this->id,
@@ -83,14 +83,14 @@ class User extends Authenticatable
         ]);
 
         // @waypoints : collection
-        $waypoints = $waypoints->map(function($wp, $i){
+        $waypoints = collect($waypoints)->map(function($wp, $i){
             unset($wp['route_id']);
             return new Waypoint($wp);
         });
 
-
         // Associate waypoints to new route
         $newRoute->waypoints()->saveMany($waypoints);
+
         $this->receivedRoutes()->wherePivot('route_id', $route->id)->first()->pivot->update([
             'accepted' => true
         ]);
