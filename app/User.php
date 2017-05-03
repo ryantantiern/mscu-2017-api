@@ -72,7 +72,7 @@ class User extends Authenticatable
     public function accept(Route $route)
     {   
         // Get waypoints of route
-        $waypoints = $route->waypoints()->get()->toArray();
+        $waypoints = $route->waypoints()->get();
 
         $newRoute = Route::create([
              'user_id' => $this->id,
@@ -82,6 +82,7 @@ class User extends Authenticatable
              'end_address' => $route->end_address
         ]);
 
+        // @waypoints : collection
         $waypoints = $waypoints->map(function($wp, $i){
             unset($wp['route_id']);
             return new Waypoint($wp);
